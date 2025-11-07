@@ -22,5 +22,6 @@ header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Expires: Thu, 19 Nov 1981 08:52:00 GMT");
 header("Pragma: no-cache");
 
-header("Location: login.php?logout=success");
+$basePath = dirname($_SERVER['SCRIPT_NAME']);
+header("Location: $basePath/login?logout=success");
 exit;

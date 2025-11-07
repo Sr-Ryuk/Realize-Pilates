@@ -51,10 +51,9 @@ if ($appDebug && $appEnv === 'development') {
  *  Verificação de login
  */
 if (empty($_SESSION['usuario_id'])) {
-
   error_log("Acesso não autorizado: " . ($_SERVER['REQUEST_URI'] ?? 'N/A') . " - " . date('Y-m-d H:i:s'));
 
-  header('Location: /realize_pilates_final/public/login.php');
-
+  $basePath = dirname($_SERVER['SCRIPT_NAME']);
+  header("Location: $basePath/login");
   exit();
 }
