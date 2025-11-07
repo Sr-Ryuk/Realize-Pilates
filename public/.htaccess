@@ -1,0 +1,66 @@
+# ==============================================
+# 🌐 REALIZE PILATES FINAL - CONFIGURAÇÕES DE ACESSO
+# ==============================================
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /realize_pilates_final/public/
+
+  # 🔒 Força HTTPS (desative totalmente em localhost)
+  # Descomente apenas em produção!
+  # RewriteCond %{HTTPS} !=on
+  # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # 🚫 Bloqueia acesso direto a pastas sensíveis
+  RewriteRule ^(src|config|database|logs|sql)/ - [F,L,NC]
+
+  # 🔄 Página padrão
+  DirectoryIndex login.php
+
+  # (Opcional) URLs amigáveis
+  # RewriteCond %{REQUEST_FILENAME} !-f
+  # RewriteCond %{REQUEST_FILENAME} !-d
+  # RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
+</IfModule>
+
+# ==============================================
+# 🧱 SEGURANÇA ADICIONAL
+# ==============================================
+
+<FilesMatch "\.(env|sql|ini|log|json|yml|lock|md)$">
+  Require all denied
+</FilesMatch>
+
+Options -Indexes
+
+<Files ".htaccess">
+  Require all denied
+</Files>
+
+# ==============================================
+# ⚡ OTIMIZAÇÃO E CACHE
+# ==============================================
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/json
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpg "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType image/x-icon "access plus 1 year"
+</IfModule>
+
+# ==============================================
+# 🧩 TIPOS DE ARQUIVO
+# ==============================================
+AddType image/svg+xml .svg
+AddType application/font-woff2 .woff2
+AddType application/font-woff .woff
+AddType application/vnd.ms-fontobject .eot
+AddType font/ttf .ttf
