@@ -1,30 +1,30 @@
 # ==============================================
-# 🌐 REALIZE PILATES FINAL - CONFIGURAÇÕES DE ACESSO
+# REALIZE PILATES - CONFIGURAÇÕES DE ACESSO
 # ==============================================
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /realize_pilates_final/public/
 
-  # 🔒 Força HTTPS (desative totalmente em localhost)
+  # Força HTTPS (desative totalmente em localhost)
   # Descomente apenas em produção!
   # RewriteCond %{HTTPS} !=on
   # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-  # 🚫 Bloqueia acesso direto a pastas sensíveis
+  # Bloqueia acesso direto a pastas sensíveis
   RewriteRule ^(src|config|database|logs|sql)/ - [F,L,NC]
 
-  # 🔄 Página padrão
+  # Página padrão
   DirectoryIndex login.php
 
-  # (Opcional) URLs amigáveis
-  # RewriteCond %{REQUEST_FILENAME} !-f
-  # RewriteCond %{REQUEST_FILENAME} !-d
-  # RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
+  # URLs amigáveis — remove .php do endereço
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^([^/]+)/?$ $1.php [L,QSA]
 </IfModule>
 
 # ==============================================
-# 🧱 SEGURANÇA ADICIONAL
+# SEGURANÇA ADICIONAL
 # ==============================================
 
 <FilesMatch "\.(env|sql|ini|log|json|yml|lock|md)$">
@@ -38,7 +38,7 @@ Options -Indexes
 </Files>
 
 # ==============================================
-# ⚡ OTIMIZAÇÃO E CACHE
+# OTIMIZAÇÃO E CACHE
 # ==============================================
 
 <IfModule mod_deflate.c>
@@ -57,7 +57,7 @@ Options -Indexes
 </IfModule>
 
 # ==============================================
-# 🧩 TIPOS DE ARQUIVO
+# TIPOS DE ARQUIVO
 # ==============================================
 AddType image/svg+xml .svg
 AddType application/font-woff2 .woff2
